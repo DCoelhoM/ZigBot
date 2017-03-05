@@ -52,9 +52,15 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
     fmt.Println("CMD: ", cmd_data)
     switch cmd_data[0] {
       case "help":
-        _, _ = s.ChannelMessageSend(m.ChannelID, "Available commands:\n``` - $help\n - $calc expression\n-\n-\n-\n-\n```")
+        _, _ = s.ChannelMessageSend(m.ChannelID, "Available commands:\n``` - $help\n - $calc expression\n - $dice\n - $magic8ball\n-\n-\n```")
       case "calc":
         resp := calc(cmd_data[1]) 
+        _, _ = s.ChannelMessageSend(m.ChannelID, resp)
+      case "dice":
+        resp := dice()
+        _, _ = s.ChannelMessageSend(m.ChannelID, resp)
+     case "magic8ball":
+        resp := magic8Ball()
         _, _ = s.ChannelMessageSend(m.ChannelID, resp)
       default:
         _, _ = s.ChannelMessageSend(m.ChannelID, "Unknow command. Use $help for more information!")
